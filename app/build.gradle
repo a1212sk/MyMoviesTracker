@@ -34,6 +34,16 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        def tmdbApiKey = properties.getProperty("tmdb_api_key", "")
+
+        it.buildConfigField 'String', "TMDB_API_KEY", tmdbApiKey
+
+        it.resValue 'string', "api_key", tmdbApiKey
+
+    }
 }
 
 dependencies {
@@ -105,3 +115,4 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
 }
+
