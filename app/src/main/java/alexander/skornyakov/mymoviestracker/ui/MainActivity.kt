@@ -1,13 +1,11 @@
-package alexander.skornyakov.mymoviestracker
+package alexander.skornyakov.mymoviestracker.ui
 
-import alexander.skornyakov.mymoviestracker.repository.TmdbRepository
+import alexander.skornyakov.mymoviestracker.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 

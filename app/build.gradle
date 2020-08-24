@@ -114,5 +114,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha07"
+
 }
 
