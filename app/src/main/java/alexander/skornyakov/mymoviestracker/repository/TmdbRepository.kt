@@ -17,7 +17,7 @@ class TmdbRepository private constructor(){
         }
     }
 
-    suspend fun getPopularMovies(): Movies{
+    suspend fun getPopularMovies(): Movies?{
         val result = TmdbApiFactory.tmdbApi.getPopularMovies()
         if(result.isSuccessful){
             result.body()?.let {
@@ -25,10 +25,10 @@ class TmdbRepository private constructor(){
             }
         }
         println(result.message() + " " + result.errorBody())
-        return Movies(0,0,0, listOf())
+        return null
     }
 
-    suspend fun getMovie(id: Int): Movie{
+    suspend fun getMovie(id: Int): Movie?{
         val result = TmdbApiFactory.tmdbApi.getMovieById(id)
         if(result.isSuccessful){
             result.body()?.let{
@@ -36,7 +36,7 @@ class TmdbRepository private constructor(){
             }
         }
         println(result.message())
-        return Movie(0,"", arrayOf(),0.0,"", Date(),"")
+        return null
     }
 
 }
