@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Search"
+        android:id="@+id/moviesFragment"
+        android:icon="@drawable/ic_baseline_search_24"/>
+    <item android:title="In progress"
+
+        android:icon="@drawable/ic_baseline_watch_later_24"/>
+    <item android:title="Watched"
+
+        android:icon="@drawable/ic_baseline_video_library_24"/>
+</menu>
