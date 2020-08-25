@@ -1,15 +1,23 @@
 package alexander.skornyakov.mymoviestracker.data
 
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class Movie(
     val id: Int,
     val title: String,
-    val genre_ids: Array<Int>,
-    val vote_average: Double,
+    @SerializedName("genre_ids")
+    val genreIds: Array<Int>,
+    @SerializedName("vote_average")
+    val voteAverage: Double,
     val overview: String,
     val release_date: Date,
-    val poster_path: String
+    @SerializedName("backdrop_path")
+    val backdropPath: String,
+    @SerializedName("original_title")
+    val originalTitle: String,
+    @SerializedName("poster_path")
+    val posterPath: String
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -19,11 +27,13 @@ data class Movie(
 
         if (id != other.id) return false
         if (title != other.title) return false
-        if (!genre_ids.contentEquals(other.genre_ids)) return false
-        if (vote_average != other.vote_average) return false
+        if (!genreIds.contentEquals(other.genreIds)) return false
+        if (voteAverage != other.voteAverage) return false
         if (overview != other.overview) return false
         if (release_date != other.release_date) return false
-        if (poster_path != other.poster_path) return false
+        if (backdropPath != other.backdropPath) return false
+        if (originalTitle != other.originalTitle) return false
+        if (posterPath != other.posterPath) return false
 
         return true
     }
@@ -31,11 +41,14 @@ data class Movie(
     override fun hashCode(): Int {
         var result = id
         result = 31 * result + title.hashCode()
-        result = 31 * result + genre_ids.contentHashCode()
-        result = 31 * result + vote_average.hashCode()
+        result = 31 * result + genreIds.contentHashCode()
+        result = 31 * result + voteAverage.hashCode()
         result = 31 * result + overview.hashCode()
         result = 31 * result + release_date.hashCode()
-        result = 31 * result + poster_path.hashCode()
+        result = 31 * result + backdropPath.hashCode()
+        result = 31 * result + originalTitle.hashCode()
+        result = 31 * result + posterPath.hashCode()
         return result
     }
 }
+
