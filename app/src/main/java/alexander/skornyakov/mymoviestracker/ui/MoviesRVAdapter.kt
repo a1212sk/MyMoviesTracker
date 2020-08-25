@@ -1,5 +1,7 @@
 package alexander.skornyakov.mymoviestracker.ui
 
+import alexander.skornyakov.mymoviestracker.Constants
+import alexander.skornyakov.mymoviestracker.GlideApp
 import alexander.skornyakov.mymoviestracker.R
 import alexander.skornyakov.mymoviestracker.data.Movie
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_movies_item.view.*
+import java.util.*
 
 class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
 
@@ -30,6 +33,19 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
         val movie = differ.currentList[position]
         holder.itemView.apply {
             tvTitle.text = movie.title
+            if(movie.originalTitle == movie.title){
+                tvOriginalTitle.visibility = View.GONE
+            }else {
+                tvOriginalTitle.visibility = View.VISIBLE
+                tvOriginalTitle.text = movie.originalTitle
+            }
+            tvYear.text = Calendar.getInstance()
+                .apply { time = movie.release_date }
+                .get(Calendar.YEAR).toString()
+            tvOverview.text = movie.overview
+            GlideApp.with(this)
+                .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)
+                .into(imgPoster)
         }
     }
 

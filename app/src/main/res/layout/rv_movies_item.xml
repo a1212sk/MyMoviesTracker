@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -28,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textAlignment="center"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imgPoster"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -39,13 +39,13 @@
                 android:layout_height="wrap_content"
                 android:text="Original Title"
                 android:textAlignment="center"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgPoster"
                 android:layout_width="172dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
@@ -62,7 +62,7 @@
                 android:text="2000"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@+id/tvOriginalTitle" />
 
             <TextView
@@ -74,7 +74,7 @@
                 android:text="Overview"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imgPoster"
                 app:layout_constraintTop_toBottomOf="@+id/tvYear" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

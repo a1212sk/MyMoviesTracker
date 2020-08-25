@@ -1,7 +1,8 @@
 package alexander.skornyakov.mymoviestracker
 
-class Constants{
+object Constants{
 
-    val TMDB_API_KEY = BuildConfig.TMDB_API_KEY
+    const val TMDB_API_KEY = BuildConfig.TMDB_API_KEY
+    const val TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
 
 }
