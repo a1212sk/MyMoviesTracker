@@ -1,5 +1,7 @@
 package alexander.skornyakov.mymoviestracker.repository.api
 
+import alexander.skornyakov.mymoviestracker.data.Genre
+import alexander.skornyakov.mymoviestracker.data.Genres
 import alexander.skornyakov.mymoviestracker.data.Movie
 import alexander.skornyakov.mymoviestracker.data.Movies
 import kotlinx.coroutines.Deferred
@@ -13,4 +15,7 @@ interface TmdbApi {
 
     @GET("movie/{id}")
     suspend fun getMovieById(@Path("id") id:Int): Response<Movie>
+
+    @GET("genre/movie/list")
+    suspend fun getGenres(): Response<Genres>
 }

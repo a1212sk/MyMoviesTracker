@@ -28,5 +28,6 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
                 adapter.submitList(it.results)
             }
         })
+
     }
 }

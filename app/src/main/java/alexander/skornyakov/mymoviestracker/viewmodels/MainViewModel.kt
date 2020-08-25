@@ -17,4 +17,10 @@ class MainViewModel : ViewModel(){
         }
     }
 
+    val genres = liveData {
+        repo?.getGenres()?.let {
+            emit(it)
+        }
+    }
+
 }

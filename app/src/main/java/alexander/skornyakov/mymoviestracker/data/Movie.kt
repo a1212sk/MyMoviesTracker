@@ -19,6 +19,13 @@ data class Movie(
     @SerializedName("poster_path")
     val posterPath: String
 ) {
+
+    private lateinit var genres: List<Genre>
+    fun getGenres() = genres
+    fun setGenres(genres: List<Genre>){
+        this.genres = genres
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

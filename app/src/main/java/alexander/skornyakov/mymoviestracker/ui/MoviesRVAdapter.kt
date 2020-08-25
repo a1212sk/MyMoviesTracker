@@ -3,6 +3,7 @@ package alexander.skornyakov.mymoviestracker.ui
 import alexander.skornyakov.mymoviestracker.Constants
 import alexander.skornyakov.mymoviestracker.GlideApp
 import alexander.skornyakov.mymoviestracker.R
+import alexander.skornyakov.mymoviestracker.data.Genre
 import alexander.skornyakov.mymoviestracker.data.Movie
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.rv_movies_item.view.*
 import java.util.*
 
 class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -46,6 +46,10 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
             GlideApp.with(this)
                 .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)
                 .into(imgPoster)
+            val genres = movie.getGenres().map {
+                it.name
+            }.joinToString(", ")
+            tvGenre.text = genres
         }
     }
 
@@ -67,4 +71,5 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
     val differ = AsyncListDiffer<Movie>(this, diffCallback)
 
     fun submitList(list: List<Movie>) = differ.submitList(list)
+
 }
