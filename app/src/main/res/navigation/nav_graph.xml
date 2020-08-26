@@ -7,4 +7,12 @@
         android:id="@+id/moviesFragment"
         android:name="alexander.skornyakov.mymoviestracker.ui.MoviesFragment"
         android:label="MoviesFragment" />
+    <fragment
+        android:id="@+id/watchedFragment"
+        android:name="alexander.skornyakov.mymoviestracker.ui.WatchedFragment"
+        android:label="WatchedFragment" />
+    <fragment
+        android:id="@+id/watchingFragment"
+        android:name="alexander.skornyakov.mymoviestracker.ui.WatchingFragment"
+        android:label="WatchingFragment" />
 </navigation>

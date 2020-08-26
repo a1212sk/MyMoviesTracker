@@ -3,10 +3,13 @@ package alexander.skornyakov.mymoviestracker.ui
 import alexander.skornyakov.mymoviestracker.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
+        bottomNavView.setupWithNavController(findNavController(R.id.navHost))
+        bottomNavView.setOnNavigationItemReselectedListener { /* NOP */ }
     }
 
     override fun onStart() {
