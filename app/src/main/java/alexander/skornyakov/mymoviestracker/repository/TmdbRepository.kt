@@ -52,12 +52,6 @@ class TmdbRepository @Inject constructor(val api: TmdbApi) {
         val result = api.getMovieById(id)
         if (result.isSuccessful) {
             result.body()?.let { movie ->
-                getGenres()?.let {
-                    val genreList = movie.genreIds.map { index ->
-                        it.single { it.id == index }
-                    }
-                    movie.setGenres(genreList)
-                }
                 return movie
             }
         }

@@ -1,0 +1,40 @@
+package alexander.skornyakov.mymoviestracker.repository
+
+import alexander.skornyakov.mymoviestracker.data.firebase.FbMovie
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
+import kotlinx.coroutines.tasks.await
+
+class FbRepository
+@Inject constructor(val db: FirebaseFirestore, val auth: FirebaseAuth) {
+
+    suspend fun getAllMyMovies(watched: Boolean): List<FbMovie> {
+        val movies = mutableListOf<FbMovie>()
+        val users = db.collection("users")
+            .whereEqualTo("userID", auth.uid)
+            .get().await()
+            .documents
+        users?.let {
+            if (it.count() > 0) {
+                var user = it[0]
+                val moviesDocs = user.reference.collection("movies")
+                    .whereEqualTo("watched", watched)
+                    .get().await().documents
+                for (doc in moviesDocs) {
+                    val id = doc.get("id") as Long
+                    val vote = (doc.get("vote") as Long).toInt()
+                    val note = doc.get("note") as String
+                    val movie = FbMovie(id, vote, note, watched)
+                    movies.add(movie)
+                }
+            }
+        }
+        return movies
+    }
+
+}
