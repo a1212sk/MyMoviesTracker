@@ -9,10 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-
-    private val repo = TmdbRepository.getInstance()
+class MainViewModel
+@ViewModelInject constructor(val repo: TmdbRepository) : ViewModel() {
 
     val movies = MutableLiveData<List<Movie>>()
 
@@ -21,7 +21,7 @@ class MainViewModel : ViewModel() {
         job.cancel()
         job = Job()
         CoroutineScope(Dispatchers.Main + job).launch {
-            repo?.let {
+            repo.let {
                 if (query.isEmpty()) {
                     movies.value = repo.getPopularMovies()?.results
                 } else {

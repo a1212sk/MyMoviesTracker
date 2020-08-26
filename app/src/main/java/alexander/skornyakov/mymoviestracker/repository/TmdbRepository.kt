@@ -3,22 +3,13 @@ package alexander.skornyakov.mymoviestracker.repository
 import alexander.skornyakov.mymoviestracker.data.Genre
 import alexander.skornyakov.mymoviestracker.data.Movie
 import alexander.skornyakov.mymoviestracker.data.Movies
-import alexander.skornyakov.mymoviestracker.repository.api.TmdbApiFactory
+import alexander.skornyakov.mymoviestracker.repository.api.TmdbApi
+import javax.inject.Inject
 
-class TmdbRepository private constructor() {
-
-    companion object {
-        private var repository: TmdbRepository? = null
-        fun getInstance(): TmdbRepository? {
-            if (repository == null) {
-                repository = TmdbRepository()
-            }
-            return repository
-        }
-    }
+class TmdbRepository @Inject constructor(val api: TmdbApi) {
 
     suspend fun getPopularMovies(): Movies? {
-        val result = TmdbApiFactory.tmdbApi.getPopularMovies()
+        val result = api.getPopularMovies()
         if (result.isSuccessful) {
             result.body()?.let { movies ->
                 getGenres()?.let {
@@ -38,7 +29,7 @@ class TmdbRepository private constructor() {
     }
 
     suspend fun searchMovies(query: String): Movies? {
-        val result = TmdbApiFactory.tmdbApi.searchMovies(query)
+        val result = api.searchMovies(query)
         if (result.isSuccessful) {
             result.body()?.let { movies ->
                 getGenres()?.let {
@@ -58,7 +49,7 @@ class TmdbRepository private constructor() {
     }
 
     suspend fun getMovie(id: Int): Movie? {
-        val result = TmdbApiFactory.tmdbApi.getMovieById(id)
+        val result = api.getMovieById(id)
         if (result.isSuccessful) {
             result.body()?.let { movie ->
                 getGenres()?.let {
@@ -77,7 +68,7 @@ class TmdbRepository private constructor() {
     private var genres: List<Genre>? = null
     suspend fun getGenres(): List<Genre>? {
         if (genres == null) {
-            val result = TmdbApiFactory.tmdbApi.getGenres()
+            val result = api.getGenres()
             if (result.isSuccessful) {
                 result.body()?.let {
                     genres = it.genres
