@@ -1,11 +1,14 @@
 package alexander.skornyakov.mymoviestracker.repository.api
 
 import alexander.skornyakov.mymoviestracker.BuildConfig.TMDB_API_KEY
+import com.google.gson.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.lang.reflect.Type
+import java.util.*
 
 object TmdbApiFactory {
 
@@ -31,7 +34,11 @@ object TmdbApiFactory {
     private fun retrofit() : Retrofit = Retrofit.Builder()
         .client(tmdbClient)
         .baseUrl("https://api.themoviedb.org/3/")
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(
+            GsonConverterFactory.create(
+               // GsonBuilder().serializeNulls().create()
+            )
+        )
         .build()
 
     val tmdbApi : TmdbApi = retrofit()

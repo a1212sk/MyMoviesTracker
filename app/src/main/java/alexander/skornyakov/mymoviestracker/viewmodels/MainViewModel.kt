@@ -1,25 +1,33 @@
 package alexander.skornyakov.mymoviestracker.viewmodels
 
+import alexander.skornyakov.mymoviestracker.data.Movie
 import alexander.skornyakov.mymoviestracker.data.Movies
 import alexander.skornyakov.mymoviestracker.repository.TmdbRepository
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import kotlinx.coroutines.*
 
-class MainViewModel : ViewModel(){
+class MainViewModel : ViewModel() {
 
     private val repo = TmdbRepository.getInstance()
 
-    fun getPopularMovies() = liveData {
-        repo?.let {
-            val data = repo.getPopularMovies()
-            emit(data)
-        }
-    }
+    val movies = MutableLiveData<List<Movie>>()
 
-    val genres = liveData {
-        repo?.getGenres()?.let {
-            emit(it)
+    private var job: Job = Job()
+    fun loadMovies(query: String = "") {
+        job.cancel()
+        job = Job()
+        CoroutineScope(Dispatchers.Main + job).launch {
+            repo?.let {
+                if (query.isEmpty()) {
+                    movies.value = repo.getPopularMovies()?.results
+                } else {
+                    movies.value = repo.searchMovies(query)?.results
+                }
+            }
         }
     }
 

@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_movies_item.view.*
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
@@ -39,9 +43,13 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
                 tvOriginalTitle.visibility = View.VISIBLE
                 tvOriginalTitle.text = movie.originalTitle
             }
-            tvYear.text = Calendar.getInstance()
-                .apply { time = movie.release_date }
-                .get(Calendar.YEAR).toString()
+            if(movie.release_date.isNotEmpty()) {
+                val date = SimpleDateFormat("yyyy-MM-dd").parse(movie.release_date)
+                Calendar.getInstance().apply {
+                    time = date
+                    tvYear.text = get(Calendar.YEAR).toString()
+                }
+            }
             tvOverview.text = movie.overview
             GlideApp.with(this)
                 .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)

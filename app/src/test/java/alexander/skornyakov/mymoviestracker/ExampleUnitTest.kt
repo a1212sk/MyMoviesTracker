@@ -2,10 +2,7 @@ package alexander.skornyakov.mymoviestracker
 
 import alexander.skornyakov.mymoviestracker.repository.TmdbRepository
 import alexander.skornyakov.mymoviestracker.repository.api.TmdbApiFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -22,10 +19,13 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun getMovies_returnsListOfMovies(){
+    fun test(){
         runBlocking {
-            val list = TmdbRepository().getPopularMovies()
-            println(list)
+            withContext(Dispatchers.IO){
+                val list = TmdbRepository.getInstance()?.searchMovies("любовь")
+                println(list)
+
+            }
         }
     }
 }

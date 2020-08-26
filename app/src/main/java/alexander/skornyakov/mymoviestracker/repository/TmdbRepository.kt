@@ -37,6 +37,26 @@ class TmdbRepository private constructor() {
         return null
     }
 
+    suspend fun searchMovies(query: String): Movies? {
+        val result = TmdbApiFactory.tmdbApi.searchMovies(query)
+        if (result.isSuccessful) {
+            result.body()?.let { movies ->
+                getGenres()?.let {
+                    for (movie in movies.results) {
+                        val genreList = movie.genreIds
+                            .map { index ->
+                                it.single { index == it.id }
+                            }
+                        movie.setGenres(genreList)
+                    }
+                    return movies
+                }
+            }
+        }
+        println(result.message() + " " + result.errorBody())
+        return null
+    }
+
     suspend fun getMovie(id: Int): Movie? {
         val result = TmdbApiFactory.tmdbApi.getMovieById(id)
         if (result.isSuccessful) {

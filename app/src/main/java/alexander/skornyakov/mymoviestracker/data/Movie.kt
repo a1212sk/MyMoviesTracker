@@ -11,7 +11,8 @@ data class Movie(
     @SerializedName("vote_average")
     val voteAverage: Double,
     val overview: String,
-    val release_date: Date,
+    @SerializedName("release_date")
+    val release_date: String,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("original_title")
@@ -51,10 +52,7 @@ data class Movie(
         result = 31 * result + genreIds.contentHashCode()
         result = 31 * result + voteAverage.hashCode()
         result = 31 * result + overview.hashCode()
-        result = 31 * result + release_date.hashCode()
-        result = 31 * result + backdropPath.hashCode()
         result = 31 * result + originalTitle.hashCode()
-        result = 31 * result + posterPath.hashCode()
         return result
     }
 }

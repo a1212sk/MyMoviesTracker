@@ -8,6 +8,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TmdbApi {
     @GET("movie/popular")
@@ -18,4 +19,7 @@ interface TmdbApi {
 
     @GET("genre/movie/list")
     suspend fun getGenres(): Response<Genres>
+
+    @GET("search/movie")
+    suspend fun searchMovies(@Query("query")query: String): Response<Movies>
 }
