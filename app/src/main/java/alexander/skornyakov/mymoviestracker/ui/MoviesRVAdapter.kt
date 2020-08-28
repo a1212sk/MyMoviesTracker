@@ -51,6 +51,7 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
                 }
             }
             tvOverview.text = movie.overview
+            tvAvgVote.text = "Average vote: ${movie.voteAverage}"
             GlideApp.with(this)
                 .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)
                 .into(imgPoster)
