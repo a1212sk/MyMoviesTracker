@@ -3,12 +3,8 @@ package alexander.skornyakov.mymoviestracker.repository
 import alexander.skornyakov.mymoviestracker.data.firebase.FbMovie
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 class FbRepository
 @Inject constructor(val db: FirebaseFirestore, val auth: FirebaseAuth) {
