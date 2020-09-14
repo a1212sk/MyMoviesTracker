@@ -33,6 +33,11 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
         return differ.currentList.size
     }
 
+    private var listener: ((Movie)->Unit)? = null
+    fun setWatchingListener(callback: (Movie)->Unit){
+        listener = callback
+    }
+
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
         holder.itemView.apply {
@@ -59,6 +64,7 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
                 it.name
             }.joinToString(", ")
             tvGenre.text = genres
+            btnToWatch.setOnClickListener { listener?.run { this(movie) } }
         }
     }
 
