@@ -4,7 +4,7 @@
     <item android:title="Search"
         android:id="@+id/moviesFragment"
         android:icon="@drawable/ic_baseline_search_24"/>
-    <item android:title="In progress"
+    <item android:title="To Watch"
         android:id="@+id/watchingFragment"
         android:icon="@drawable/ic_baseline_watch_later_24"/>
     <item android:title="Watched"
