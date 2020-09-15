@@ -42,4 +42,13 @@ class MainViewModel
         }
     }
 
+    fun addToWatched(movie: Movie){
+        var fbMovie = FbMovie()
+        fbMovie.id = movie.id.toLong()
+        fbMovie.watched = true
+        CoroutineScope(Dispatchers.IO).launch {
+            fbRepository.addMovie(fbMovie)
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package alexander.skornyakov.mymoviestracker.ui
 
 import alexander.skornyakov.mymoviestracker.R
+import alexander.skornyakov.mymoviestracker.ui.adapters.WatchingMoviesRVAdapter
 import alexander.skornyakov.mymoviestracker.viewmodels.WatchingViewModel
 import android.os.Bundle
 import android.view.View
@@ -19,11 +20,12 @@ class WatchingFragment : Fragment(R.layout.fragment_watching){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = WatchingMoviesRVAdapter()
+        val adapter =
+            WatchingMoviesRVAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        viewModel.watchedMovies.observe(viewLifecycleOwner, Observer {
+        viewModel.watchingMovies.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
     }

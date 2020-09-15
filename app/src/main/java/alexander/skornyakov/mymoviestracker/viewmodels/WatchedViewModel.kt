@@ -7,13 +7,13 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 
-class WatchingViewModel @ViewModelInject constructor(
+class WatchedViewModel @ViewModelInject constructor(
     val tmdbRepository: TmdbRepository,
     val fbRepository: FbRepository
 ) : ViewModel() {
 
-    val watchingMovies = liveData<List<Movie>> {
-        val listOfWatchedMovies = fbRepository.getAllMyMovies(false)
+    val watchedMovies = liveData<List<Movie>> {
+        val listOfWatchedMovies = fbRepository.getAllMyMovies(true)
         val result = mutableListOf<Movie>()
         for(m in listOfWatchedMovies){
             val movie = tmdbRepository.getMovie(m.id.toInt())

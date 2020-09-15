@@ -1,9 +1,8 @@
-package alexander.skornyakov.mymoviestracker.ui
+package alexander.skornyakov.mymoviestracker.ui.adapters
 
 import alexander.skornyakov.mymoviestracker.Constants
 import alexander.skornyakov.mymoviestracker.GlideApp
 import alexander.skornyakov.mymoviestracker.R
-import alexander.skornyakov.mymoviestracker.data.Genre
 import alexander.skornyakov.mymoviestracker.data.Movie
 import android.view.LayoutInflater
 import android.view.View
@@ -13,29 +12,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.rv_movies_item.view.*
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
-class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
+class WatchedMoviesRVAdapter : RecyclerView.Adapter<WatchedMoviesRVAdapter.MovieViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.rv_movies_item, parent, false)
+                .inflate(R.layout.rv_watched_movies_item, parent, false)
         )
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
-    }
-
-    private var listener: ((Movie)->Unit)? = null
-    fun setWatchingListener(callback: (Movie)->Unit){
-        listener = callback
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -56,7 +47,7 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
                 }
             }
             tvOverview.text = movie.overview
-            tvAvgVote.text = "Average vote: ${movie.voteAverage}"
+            //tvAvgVote.text = "Average vote: ${movie.voteAverage}"
             GlideApp.with(this)
                 .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)
                 .into(imgPoster)
@@ -64,7 +55,6 @@ class MoviesRVAdapter : RecyclerView.Adapter<MoviesRVAdapter.MovieViewHolder>(){
                 it.name
             }.joinToString(", ")
             tvGenre.text = genres
-            btnToWatch.setOnClickListener { listener?.run { this(movie) } }
         }
     }
 
