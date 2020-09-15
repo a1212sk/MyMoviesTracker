@@ -25,7 +25,7 @@ class WatchingMoviesRVAdapter : RecyclerView.Adapter<WatchingMoviesRVAdapter.Mov
         return MovieViewHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.rv_movies_item, parent, false)
+                .inflate(R.layout.rv_watching_movies_item, parent, false)
         )
     }
 
@@ -51,7 +51,7 @@ class WatchingMoviesRVAdapter : RecyclerView.Adapter<WatchingMoviesRVAdapter.Mov
                 }
             }
             tvOverview.text = movie.overview
-            tvAvgVote.text = "Average vote: ${movie.voteAverage}"
+            //tvAvgVote.text = "Average vote: ${movie.voteAverage}"
             GlideApp.with(this)
                 .load(Constants.TMDB_IMAGE_BASE + movie.posterPath)
                 .into(imgPoster)
