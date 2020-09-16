@@ -1,6 +1,8 @@
 package alexander.skornyakov.mymoviestracker.ui
 
 import alexander.skornyakov.mymoviestracker.R
+import alexander.skornyakov.mymoviestracker.helpers.hide
+import alexander.skornyakov.mymoviestracker.helpers.show
 import alexander.skornyakov.mymoviestracker.ui.adapters.WatchingMoviesRVAdapter
 import alexander.skornyakov.mymoviestracker.viewmodels.WatchingViewModel
 import android.os.Bundle
@@ -25,7 +27,11 @@ class WatchingFragment : Fragment(R.layout.fragment_watching){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        progressBar2.show()
+        recyclerView.hide()
         viewModel.watchingMovies.observe(viewLifecycleOwner, Observer {
+            progressBar2.hide()
+            recyclerView.show()
             adapter.submitList(it)
         })
     }
