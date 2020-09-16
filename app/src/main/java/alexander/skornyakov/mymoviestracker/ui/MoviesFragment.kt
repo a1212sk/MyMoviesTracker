@@ -27,7 +27,17 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        mainViewModel.loadMovies()
+        showPB()
+        hideRecyclerView()
+        hideSearch()
+        mainViewModel.loadMovies().invokeOnCompletion {
+            if(it==null){
+                hidePB()
+                showRecyclerView()
+                showSearch()
+            }
+        }
+
 
         mainViewModel.movies.observe(viewLifecycleOwner, Observer {
             if(it!=null){
@@ -59,5 +69,29 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
                 .show()
         }
 
+    }
+
+    private fun hideRecyclerView() {
+        recyclerView.visibility = View.GONE
+    }
+
+    private fun showRecyclerView(){
+        recyclerView.visibility = View.VISIBLE
+    }
+
+    private fun hideSearch() {
+        etSearch.visibility = View.GONE
+    }
+
+    private fun showSearch(){
+        etSearch.visibility = View.VISIBLE
+    }
+
+    private fun hidePB(){
+        progressBar.visibility = View.GONE
+    }
+
+    private fun showPB(){
+        progressBar.visibility = View.VISIBLE
     }
 }

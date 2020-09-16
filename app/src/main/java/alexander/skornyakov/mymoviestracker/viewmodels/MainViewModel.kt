@@ -19,10 +19,10 @@ class MainViewModel
     val movies = MutableLiveData<List<Movie>>()
 
     private var job: Job = Job()
-    fun loadMovies(query: String = "") {
+    fun loadMovies(query: String = "") : Job{
         job.cancel()
         job = Job()
-        CoroutineScope(Dispatchers.Main + job).launch {
+        return CoroutineScope(Dispatchers.Main + job).launch {
             repo.let {
                 if (query.isEmpty()) {
                     movies.value = repo.getPopularMovies()?.results
