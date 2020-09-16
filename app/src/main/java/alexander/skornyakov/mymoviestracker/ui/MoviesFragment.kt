@@ -1,6 +1,8 @@
 package alexander.skornyakov.mymoviestracker.ui
 
 import alexander.skornyakov.mymoviestracker.R
+import alexander.skornyakov.mymoviestracker.helpers.hide
+import alexander.skornyakov.mymoviestracker.helpers.show
 import alexander.skornyakov.mymoviestracker.ui.adapters.MoviesRVAdapter
 import alexander.skornyakov.mymoviestracker.viewmodels.MainViewModel
 import android.os.Bundle
@@ -27,14 +29,14 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
-        showPB()
-        hideRecyclerView()
-        hideSearch()
+        progressBar.show()
+        recyclerView.hide()
+        etSearch.hide()
         mainViewModel.loadMovies().invokeOnCompletion {
             if(it==null){
-                hidePB()
-                showRecyclerView()
-                showSearch()
+                progressBar.hide()
+                recyclerView.show()
+                etSearch.show()
             }
         }
 
@@ -71,27 +73,4 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
 
     }
 
-    private fun hideRecyclerView() {
-        recyclerView.visibility = View.GONE
-    }
-
-    private fun showRecyclerView(){
-        recyclerView.visibility = View.VISIBLE
-    }
-
-    private fun hideSearch() {
-        etSearch.visibility = View.GONE
-    }
-
-    private fun showSearch(){
-        etSearch.visibility = View.VISIBLE
-    }
-
-    private fun hidePB(){
-        progressBar.visibility = View.GONE
-    }
-
-    private fun showPB(){
-        progressBar.visibility = View.VISIBLE
-    }
 }
