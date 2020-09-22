@@ -33,7 +33,7 @@ class FbRepository
         return movies
     }
 
-    suspend fun addMovie(movie: FbMovie){
+    suspend fun addMovie(movie: FbMovie) {
         val users = db.collection("users")
             .whereEqualTo("userID", auth.uid)
             .get().await()
@@ -45,6 +45,24 @@ class FbRepository
                     .add(movie).await()
             }
         }
+    }
+
+    suspend fun existsWithId(id: Long): Boolean {
+        val users = db.collection("users")
+            .whereEqualTo("userID", auth.uid)
+            .get().await()
+            .documents
+        users?.let {
+            if(it.count() > 0){
+                var user = it[0]
+                val exists = user.reference.collection("movies")
+                    .whereEqualTo("id",id)
+                    .get().await()
+                    .documents.size>0
+                return exists
+            }
+        }
+        return false
     }
 
 }

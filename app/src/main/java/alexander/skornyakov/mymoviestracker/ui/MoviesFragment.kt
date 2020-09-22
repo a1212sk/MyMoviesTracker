@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_movies.*
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment(R.layout.fragment_movies){
+class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -33,7 +33,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
         recyclerView.hide()
         etSearch.hide()
         mainViewModel.loadMovies().invokeOnCompletion {
-            if(it==null){
+            if (it == null) {
                 progressBar.hide()
                 recyclerView.show()
                 etSearch.show()
@@ -42,7 +42,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
 
 
         mainViewModel.movies.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
                 adapter.submitList(it)
             }
         })
@@ -53,24 +53,49 @@ class MoviesFragment : Fragment(R.layout.fragment_movies){
             }
         }
 
-        adapter.setWatchingListener {
-            mainViewModel.addToWatching(it)
-            Toast.makeText(
-                context,
-                "${it.title} is being added...",
-                Toast.LENGTH_LONG)
-                .show()
+        adapter.setWatchingListener { movie ->
+            mainViewModel.alreadyExists(movie.id.toLong())
+                .observe(viewLifecycleOwner, Observer {
+                    if (it != true) {
+                        mainViewModel.addToWatching(movie)
+                        Toast.makeText(
+                            context,
+                            "${movie.title} is being added...",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "${movie.title} is already in a list",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+                })
         }
 
-        adapter.setWatchedListener {
-            mainViewModel.addToWatched(it)
-            Toast.makeText(
-                context,
-                "${it.title} is being added...",
-                Toast.LENGTH_LONG)
-                .show()
+        adapter.setWatchedListener { movie ->
+            mainViewModel.alreadyExists(movie.id.toLong())
+                .observe(viewLifecycleOwner, Observer {
+                    if (it != true) {
+                        mainViewModel.addToWatched(movie)
+                        Toast.makeText(
+                            context,
+                            "${movie.title} is being added...",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "${movie.title} is already in a list",
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
+                })
         }
-
     }
 
 }

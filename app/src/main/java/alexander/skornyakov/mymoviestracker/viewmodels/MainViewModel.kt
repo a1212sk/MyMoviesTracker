@@ -51,4 +51,9 @@ class MainViewModel
         }
     }
 
+    fun alreadyExists(id: Long):LiveData<Boolean> = liveData{
+            val exists = fbRepository.existsWithId(id)
+            emit(exists)
+    }
+
 }
