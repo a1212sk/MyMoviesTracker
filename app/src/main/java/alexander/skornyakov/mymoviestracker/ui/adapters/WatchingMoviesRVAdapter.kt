@@ -10,7 +10,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.rv_movies_item.view.*
+import kotlinx.android.synthetic.main.rv_watching_movies_item.view.*
+
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,6 +28,11 @@ class WatchingMoviesRVAdapter : RecyclerView.Adapter<WatchingMoviesRVAdapter.Mov
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    private var addWatchedMovieListener: ((Movie)->Unit)? = null
+    fun setWatchedListener(callback: (Movie)->Unit){
+        addWatchedMovieListener = callback
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -55,6 +61,7 @@ class WatchingMoviesRVAdapter : RecyclerView.Adapter<WatchingMoviesRVAdapter.Mov
                 it.name
             }.joinToString(", ")
             tvGenre.text = genres
+            btnWatched.setOnClickListener { addWatchedMovieListener?.run { this(movie) } }
         }
     }
 

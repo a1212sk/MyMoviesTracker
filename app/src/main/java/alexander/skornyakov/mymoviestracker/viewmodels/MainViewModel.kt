@@ -51,9 +51,26 @@ class MainViewModel
         }
     }
 
-    fun alreadyExists(id: Long):LiveData<Boolean> = liveData{
-            val exists = fbRepository.existsWithId(id)
+    fun alreadyExists(id: Long, watched: Boolean):LiveData<Boolean> = liveData{
+            val exists = fbRepository.existsWithId(id, watched)
             emit(exists)
     }
+
+    fun alreadyExists(id: Long):LiveData<Boolean> = liveData{
+        val exists = fbRepository.existsWithId(id)
+        emit(exists)
+    }
+
+    fun toWatched(movie: Movie) {
+        var fbMovie = FbMovie()
+        fbMovie.id = movie.id.toLong()
+        fbMovie.watched = true
+        CoroutineScope(Dispatchers.IO).launch {
+            fbRepository.updateMovie(fbMovie)
+
+        }
+    }
+
+
 
 }

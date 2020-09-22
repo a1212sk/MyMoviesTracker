@@ -67,7 +67,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     } else {
                         Toast.makeText(
                             context,
-                            "${movie.title} is already in a list",
+                            "${movie.title} is already in the list",
                             Toast.LENGTH_LONG
                         )
                             .show()
@@ -89,13 +89,14 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     } else {
                         Toast.makeText(
                             context,
-                            "${movie.title} is already in a list",
+                            "${movie.title} is already in the list",
                             Toast.LENGTH_LONG
                         )
                             .show()
                     }
                 })
         }
+
     }
 
 }

@@ -47,9 +47,10 @@ object AppModule {
     @Singleton
     fun provideFbRepository(
         firebaseAuth: FirebaseAuth,
-        firestore: FirebaseFirestore
+        firestore: FirebaseFirestore,
+        tmdbRepository: TmdbRepository
     ): FbRepository {
-        return FbRepository(firestore, firebaseAuth)
+        return FbRepository(firestore, firebaseAuth, tmdbRepository)
     }
 
 }
